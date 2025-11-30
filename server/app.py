@@ -19,6 +19,7 @@ from modules.index import index_router
 from modules.library import library_router
 from modules.log import log_router
 from modules.login import login_router
+from modules.menu import menu_router
 from modules.settings import settings_router
 from modules.task import task_router
 from modules.user import user_router
@@ -34,6 +35,7 @@ def parse_args() -> None:
     args = parser.parse_args()
     global_var.set_value(const.DEBUG_KEY, args.debug)
     global_var.set_value(const.PORT_KEY, os.environ.get(const.PORT_KEY, 9001))
+    global_var.set_value(const.AUTH_URL_KEY, os.environ.get(const.AUTH_URL_KEY, ""))
 
 
 def load_config(env_file: str):
@@ -106,6 +108,7 @@ if __name__ == "__main__":
     app.register_blueprint(async_routes_router)
     app.register_blueprint(library_router)
     app.register_blueprint(crawler_router)
+    app.register_blueprint(menu_router)
 
     # process when exit
     if not platform.system().lower() == 'windows':

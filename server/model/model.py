@@ -127,6 +127,15 @@ class FvdTaskQueue(Base):
     crawler_hash = Column(String(200), nullable=False, server_default=text("''"), comment='爬虫hash')
 
 
+class FvdToken(Base):
+    __tablename__ = 'fvd_token'
+
+    id = Column(Integer, primary_key=True)
+    token = Column(String(200), nullable=False, server_default=text("''"), comment='token')
+    create_time = Column(DateTime, nullable=False, server_default=text("'0000-01-01 00:00:00'"))
+    is_deleted = Column(TINYINT(1), nullable=False, server_default=text("'0'"))
+
+
 class FvdUserList(Base):
     __tablename__ = 'fvd_user_list'
     __table_args__ = {'comment': '用户表'}
