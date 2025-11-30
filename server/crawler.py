@@ -25,7 +25,7 @@ def load_config(env_file: str):
 
 
 if __name__ == "__main__":
-    load_config(os.environ['IVD_CONFIG'])
+    load_config(os.environ['FVD_CONFIG'])
     pass
 
 G_CURR_PATH = os.path.dirname(os.path.abspath(__file__))

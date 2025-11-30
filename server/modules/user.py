@@ -4,7 +4,7 @@ from datetime import datetime
 from flask import Blueprint, request
 from sqlalchemy import and_
 
-from model.model import IvdUserList, IvdOnlineList
+from model.model import FvdUserList, FvdOnlineList
 from utils import const
 from utils.db import db
 from utils.enc_util import md5
@@ -33,11 +33,11 @@ def user_add():
     if not password or len(password) == 0:
         return result_failure(const.LOGIN_ERR_USER_OR_PASSWORD_EMPTY, 'LOGIN_ERR_USER_OR_PASSWORD_EMPTY')
     curr_datetime = datetime.now()
-    ivd_user_list = IvdUserList()
-    ivd_user_list.user_name = user_name
-    ivd_user_list.password = md5(password)
-    ivd_user_list.create_time = curr_datetime
-    db.session.add(ivd_user_list)
+    user_item = FvdUserList()
+    user_item.user_name = user_name
+    user_item.password = md5(password)
+    user_item.create_time = curr_datetime
+    db.session.add(user_item)
     db.session.commit()
     return result_succ({'user_name': user_name})
 
@@ -55,11 +55,11 @@ def user_del():
         user_name = req_json['user_name'].strip()
     if not user_name or len(user_name) == 0:
         return result_failure(const.LOGIN_ERR_USER_EMPTY, 'LOGIN_ERR_USER_EMPTY')
-    db.session.query(IvdUserList) \
-        .filter(IvdUserList.user_name == user_name) \
+    db.session.query(FvdUserList) \
+        .filter(FvdUserList.user_name == user_name) \
         .delete()
-    db.session.query(IvdOnlineList) \
-        .filter(IvdOnlineList.user_name == user_name) \
+    db.session.query(FvdOnlineList) \
+        .filter(FvdOnlineList.user_name == user_name) \
         .delete()
     db.session.commit()
     return result_succ({})
@@ -84,22 +84,22 @@ def user_change_password():
         return result_failure(const.LOGIN_ERR_NEW_PASS_EMPTY, 'LOGIN_ERR_NEW_PASS_EMPTY')
     if new_pass == old_pass:
         return result_failure(const.LOGIN_ERR_OLD_NEW_PASS_SAME, "LOGIN_ERR_OLD_NEW_PASS_SAME")
-    res_list = db.session.query(IvdOnlineList) \
-        .filter(IvdOnlineList.token == token) \
+    res_list = db.session.query(FvdOnlineList) \
+        .filter(FvdOnlineList.token == token) \
         .first()
     if not res_list:
         return result_failure(const.LOGIN_ERR_NOT_LOGIN, 'LOGIN_ERR_NOT_LOGIN')
     user_name = res_list.user_name
-    count = db.session.query(IvdUserList) \
-        .filter(and_(IvdUserList.user_name == user_name, IvdUserList.password == md5(old_pass))) \
+    count = db.session.query(FvdUserList) \
+        .filter(and_(FvdUserList.user_name == user_name, FvdUserList.password == md5(old_pass))) \
         .count()
     if count != 1:
         return result_failure(const.LOGIN_ERR_OLD_PASS_NOT_MATCH, 'LOGIN_ERR_OLD_PASS_NOT_MATCH')
-    db.session.query(IvdUserList) \
-        .filter(IvdUserList.user_name == user_name) \
-        .update({IvdUserList.password: md5(new_pass)})
-    db.session.query(IvdOnlineList) \
-        .filter(IvdOnlineList.user_name == user_name) \
+    db.session.query(FvdUserList) \
+        .filter(FvdUserList.user_name == user_name) \
+        .update({FvdUserList.password: md5(new_pass)})
+    db.session.query(FvdOnlineList) \
+        .filter(FvdOnlineList.user_name == user_name) \
         .delete()
     db.session.commit()
     return result_succ({})

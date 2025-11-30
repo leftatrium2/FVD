@@ -1,6 +1,6 @@
 from flask import Blueprint
 
-from model.model import IvdMaterialLibrary
+from model.model import FvdMaterialLibrary
 from utils.db import db
 from utils.result import result_succ
 
@@ -9,8 +9,8 @@ library_router = Blueprint('library', __name__, url_prefix='/library')
 
 @library_router.route('/', methods=['GET'])
 def index():
-    res_list = db.session.query(IvdMaterialLibrary) \
-        .filter(IvdMaterialLibrary.is_deleted == 0) \
+    res_list = db.session.query(FvdMaterialLibrary) \
+        .filter(FvdMaterialLibrary.is_deleted == 0) \
         .all()
     data_list = []
     data = {}

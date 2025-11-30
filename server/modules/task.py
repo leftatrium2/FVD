@@ -6,7 +6,7 @@ from flask import Blueprint, request
 from sqlalchemy import and_, func
 
 from crawler.crawler_factory import crawler
-from model.model import IvdTaskList, IvdOnlineList
+from model.model import FvdTaskList, FvdOnlineList
 from task.task_const import TASK_EXECUTION_EXECUTE_MODE
 from task.task_manager import g_task_manager
 from utils import const
@@ -32,13 +32,13 @@ def task_index():
     if 'material_id' in request.args:
         material_id = request.args.get('material_id')
     if material_id != 0:
-        conditions.append(IvdTaskList.material_library_id == material_id)
+        conditions.append(FvdTaskList.material_library_id == material_id)
     offset = (page - 1) * count
-    res_list = db.session.query(IvdTaskList) \
+    res_list = db.session.query(FvdTaskList) \
         .filter(and_(*conditions)) \
         .offset(offset) \
         .limit(count)
-    total_items = db.session.query(func.count(IvdTaskList.id)).scalar()
+    total_items = db.session.query(func.count(FvdTaskList.id)).scalar()
     total_pages = (total_items / count) + 1
     ret_list = {
         'total_pages': total_pages,
@@ -99,12 +99,12 @@ def task_second():
         logging.error(f"SIMPLE_TASK_SECOND_URL_EMPTY")
         return result_failure(const.SIMPLE_TASK_SECOND_URL_EMPTY, "SIMPLE_TASK_SECOND_URL_EMPTY")
     token = request.headers.get('token')
-    res = db.session.query(IvdOnlineList) \
-        .filter(IvdOnlineList.token == token) \
+    res = db.session.query(FvdOnlineList) \
+        .filter(FvdOnlineList.token == token) \
         .first()
     if res:
         user_id = res.user_id if res.user_id else 0
-        simple_task = IvdTaskList()
+        simple_task = FvdTaskList()
         simple_task.task_url = req_json['url']
         simple_task.task_id = gen_task_id()
         simple_task.user_id = user_id

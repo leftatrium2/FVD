@@ -53,7 +53,7 @@ def app_exists():
 
 if __name__ == "__main__":
     ytdlp_support_manager.init()
-    load_config(os.environ['IVD_CONFIG'])
+    load_config(os.environ['FVD_CONFIG'])
     global_var.init()
     log_utils.init_logging()
     parse_args()

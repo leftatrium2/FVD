@@ -40,7 +40,7 @@ def init_console_out() -> None:
     # In some cases, the suffix to be defined cannot be repeated because of when.
     # backupCount is the number of retained logs. The default value of 0 will not automatically delete the log. If set to 10, during the creation process of the file
     # The library will determine whether there are more than 10. If it exceeds, it will be deleted starting from the first created one.
-    log_file_handler = TimedRotatingFileHandler(filename=g_log_dir + f"{os.sep}ivd", when='midnight', interval=1,
+    log_file_handler = TimedRotatingFileHandler(filename=g_log_dir + f"{os.sep}fvd", when='midnight', interval=1,
                                                 backupCount=7, encoding='utf-8')
     log_file_handler.suffix = '%Y-%m-%d.log'
     log_file_handler.extMatch = re.compile(r"^\d{4}-\d{2}-\d{2}.log$")

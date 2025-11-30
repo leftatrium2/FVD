@@ -4,7 +4,7 @@ from datetime import datetime
 from flask import Blueprint, request
 
 from crawler import crawler_const
-from model.model import IvdCrawlerList
+from model.model import FvdCrawlerList
 from utils import result, const
 from utils.db import db
 from utils.task_utils import gen_crawler_hash
@@ -23,7 +23,7 @@ def crawler_register():
 
     try:
         crawler_hash = gen_crawler_hash()
-        crawler_item = IvdCrawlerList()
+        crawler_item = FvdCrawlerList()
         crawler_item.crawler_host = ip
         crawler_item.crawler_name = rand
         crawler_item.crawler_hash = crawler_hash

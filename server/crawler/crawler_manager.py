@@ -7,7 +7,7 @@ import requests
 
 from apscheduler.schedulers.background import BackgroundScheduler
 
-from model.model import IvdCrawlerList
+from model.model import FvdCrawlerList
 from utils import utils, const
 from utils.db_client import get_db_client
 from utils.network_utils import get_current_host
@@ -33,7 +33,7 @@ class CrawlerManager(object):
 
     def _clean_crawler(self):
         with get_db_client() as db:
-            db.query(IvdCrawlerList) \
+            db.query(FvdCrawlerList) \
                 .delete()
             db.commit()
 

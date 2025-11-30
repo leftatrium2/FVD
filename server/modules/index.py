@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 
-from model.model import IvdMaterial
+from model.model import FvdMaterial
 from utils.db import db
 
 from sqlalchemy import and_, func
@@ -29,20 +29,20 @@ def index():
     if 'material_id' in request.args:
         material_id = request.args.get('material_id')
     if material_id != 0:
-        conditions.append(IvdMaterial.material_id == material_id)
+        conditions.append(FvdMaterial.material_id == material_id)
     # search keyword
     keyword = None
     if 'keyword' in request.args:
         keyword = request.args.get('keyword')
     if keyword:
-        conditions.append(IvdMaterial.title.like(f"%{keyword}%"))
-        conditions.append(IvdMaterial.description.like(f"%{keyword}%"))
+        conditions.append(FvdMaterial.title.like(f"%{keyword}%"))
+        conditions.append(FvdMaterial.description.like(f"%{keyword}%"))
     offset = (page - 1) * count
-    res_list = db.session.query(IvdMaterial) \
+    res_list = db.session.query(FvdMaterial) \
         .filter(and_(*conditions)) \
         .offset(offset) \
         .limit(count)
-    total_items = db.session.query(func.count(IvdMaterial.id)).scalar()
+    total_items = db.session.query(func.count(FvdMaterial.id)).scalar()
     total_pages = (total_items / count) + 1
     ret_list = {
         'total_pages': total_pages,
