@@ -1,0 +1,28 @@
+<template>
+  <div class="layout">
+    <Header />
+    <main class="main-content">
+      <slot />
+    </main>
+    <Footer />
+  </div>
+</template>
+
+<script setup>
+</script>
+
+<style scoped>
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex: 1;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+</style>

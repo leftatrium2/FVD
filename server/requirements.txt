@@ -1,0 +1,8 @@
+APScheduler==3.10.4
+Flask==3.0.3
+flask-cors==4.0.1
+flask_sqlalchemy==3.1.1
+python-dotenv==1.0.1
+SQLAlchemy==1.4.49
+pyuwsgi==2.0.23.post0
+flask-babel==4.0.0

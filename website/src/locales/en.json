@@ -1,0 +1,41 @@
+{
+  "nav": {
+    "home": "Home",
+    "news": "News",
+    "features": "Features",
+    "download": "Download",
+    "support": "Support"
+  },
+  "language": {
+    "title": "Language",
+    "chinese": "中文",
+    "english": "English"
+  },
+  "brand": {
+    "name": "Internet Video Downloader",
+    "short": "iVD"
+  },
+  "home": {
+    "title": "Home",
+    "description": "Welcome to iVD Video Downloader"
+  },
+  "news": {
+    "title": "News",
+    "description": "Latest news and updates"
+  },
+  "features": {
+    "title": "Features",
+    "description": "Powerful features"
+  },
+  "download": {
+    "title": "Download",
+    "description": "Download iVD application"
+  },
+  "support": {
+    "title": "Support",
+    "description": "Get help and support"
+  },
+  "footer": {
+    "copyright": "© 2025 iVD - Internet Video Downloader. All rights reserved."
+  }
+}
