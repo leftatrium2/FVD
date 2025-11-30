@@ -11,54 +11,26 @@
         class="border-r-0"
         @click="handleMenuClick"
       >
-        <a-menu-item key="/home">
-          <template #icon>
-            <HomeOutlined />
-          </template>
-          <span>{{ $t('menu.home') }}</span>
-        </a-menu-item>
-        <a-menu-item key="/download">
-          <template #icon>
-            <CloudDownloadOutlined />
-          </template>
-          <span>{{ $t('menu.download') }}</span>
-        </a-menu-item>
-        <a-menu-item key="/crawler">
-          <template #icon>
-            <BugOutlined />
-          </template>
-          <span>{{ $t('menu.crawler') }}</span>
-        </a-menu-item>
-        <a-menu-item key="/add-single-task">
-          <template #icon>
-            <PlusCircleOutlined />
-          </template>
-          <span>{{ $t('menu.addSingleTask') }}</span>
-        </a-menu-item>
-        <a-menu-item key="/add-batch-task">
-          <template #icon>
-            <PlusSquareOutlined />
-          </template>
-          <span>{{ $t('menu.addBatchTask') }}</span>
-        </a-menu-item>
-        <a-menu-item key="/add-scheduled-task">
-          <template #icon>
-            <ClockCircleOutlined />
-          </template>
-          <span>{{ $t('menu.addScheduledTask') }}</span>
-        </a-menu-item>
-        <a-sub-menu key="settings">
-          <template #icon>
-            <SettingOutlined />
-          </template>
-          <template #title>{{ $t('menu.settings') }}</template>
-          <a-menu-item key="/settings/general">{{ $t('menu.general') }}</a-menu-item>
-          <a-menu-item key="/settings/video">{{ $t('menu.video') }}</a-menu-item>
-          <a-menu-item key="/settings/proxy">{{ $t('menu.proxy') }}</a-menu-item>
-          <a-menu-item key="/settings/logs">{{ $t('menu.logs') }}</a-menu-item>
-          <a-menu-item key="/settings/upgrade">{{ $t('menu.upgrade') }}</a-menu-item>
-          <a-menu-item key="/settings/about">{{ $t('menu.about') }}</a-menu-item>
-        </a-sub-menu>
+        <template v-for="item in menuList" :key="item.url || item.c_name">
+          <!-- 无子菜单项 -->
+          <a-menu-item v-if="!item.sub" :key="item.url">
+            <template #icon>
+              <component :is="getMenuIcon(item.url)" />
+            </template>
+            <span>{{ currentLanguage === 'zh-CN' ? item.c_name : item.e_name }}</span>
+          </a-menu-item>
+          
+          <!-- 有子菜单项 -->
+          <a-sub-menu v-else :key="item.c_name">
+            <template #icon>
+              <component :is="getMenuIcon('settings')" />
+            </template>
+            <template #title>{{ currentLanguage === 'zh-CN' ? item.c_name : item.e_name }}</template>
+            <a-menu-item v-for="subItem in item.sub" :key="subItem.url">
+              {{ currentLanguage === 'zh-CN' ? subItem.c_name : subItem.e_name }}
+            </a-menu-item>
+          </a-sub-menu>
+        </template>
       </a-menu>
     </a-layout-sider>
     <a-layout>
@@ -122,7 +94,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useUserStore } from '@/store/user'
 import { useI18n } from 'vue-i18n'
@@ -141,6 +113,14 @@ import {
   GlobalOutlined
 } from '@ant-design/icons-vue'
 import { message } from 'ant-design-vue'
+import request from '@/utils/request'
+
+interface MenuItem {
+  c_name: string
+  e_name: string
+  url?: string
+  sub?: MenuItem[]
+}
 
 const router = useRouter()
 const route = useRoute()
@@ -150,10 +130,46 @@ const { t, locale } = useI18n()
 const collapsed = ref(false)
 const selectedKeys = ref<string[]>([route.path])
 const currentLanguage = computed(() => locale.value)
+const menuList = ref<MenuItem[]>([])
 
 const pageTitle = computed(() => {
   return route.meta.title as string || '首页'
 })
+
+// 获取菜单图标
+const getMenuIcon = (url: string | undefined) => {
+  if (!url) return HomeOutlined
+  
+  const iconMap: Record<string, any> = {
+    '/home': HomeOutlined,
+    '/download': CloudDownloadOutlined,
+    '/crawler': BugOutlined,
+    '/add-single-task': PlusCircleOutlined,
+    '/add-batch-task': PlusSquareOutlined,
+    '/import-batch-single-task': PlusSquareOutlined,
+    '/add-scheduled-task': ClockCircleOutlined,
+    'settings': SettingOutlined
+  }
+  
+  return iconMap[url] || HomeOutlined
+}
+
+// 获取菜单数据
+const fetchMenuData = async () => {
+  try {
+    const response = await request.get('/menu/')
+    
+    if (response.code === 0) {
+      menuList.value = response.data || []
+    } else {
+      menuList.value = []
+    }
+  } catch (error) {
+    console.error('获取菜单失败:', error)
+    // 静默失败，不显示错误提示
+    menuList.value = []
+  }
+}
 
 const handleMenuClick = ({ key }: { key: string }) => {
   selectedKeys.value = [key]
@@ -182,6 +198,11 @@ const handleLanguageChange = ({ key }: { key: string }) => {
 // 监听路由变化
 router.afterEach((to) => {
   selectedKeys.value = [to.path]
+})
+
+// 组件挂载时获取菜单数据
+onMounted(() => {
+  fetchMenuData()
 })
 </script>
 

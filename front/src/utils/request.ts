@@ -74,6 +74,9 @@ request.interceptors.response.use(
   (error) => {
     console.error('Response error:', error)
     
+    // 检查是否是菜单接口，如果是则静默失败
+    const isMenuRequest = error.config?.url?.includes('/menu')
+    
     if (error.response) {
       // 服务器返回了错误状态码
       const status = error.response.status
@@ -89,6 +92,11 @@ request.interceptors.response.use(
           message.error(t('error.tokenExpired'))
           window.location.href = '/login'
         }
+        return Promise.reject(error)
+      }
+      
+      // 菜单接口错误不显示提示
+      if (isMenuRequest) {
         return Promise.reject(error)
       }
       
@@ -115,10 +123,16 @@ request.interceptors.response.use(
       }
     } else if (error.request) {
       // 请求已发送但没有收到响应
-      message.error(t('error.networkError'))
+      // 菜单接口错误不显示提示
+      if (!isMenuRequest) {
+        message.error(t('error.networkError'))
+      }
     } else {
       // 其他错误
-      message.error(t('error.requestFailed'))
+      // 菜单接口错误不显示提示
+      if (!isMenuRequest) {
+        message.error(t('error.requestFailed'))
+      }
     }
     
     return Promise.reject(error)

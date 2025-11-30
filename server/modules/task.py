@@ -60,7 +60,7 @@ def task_get():
 # add simple task
 # accept multiple simple url task
 @task_router.route('/simple', methods=['POST'])
-def simple_task_first():
+def simple_task():
     result = check_is_login_from_header(request)
     if result != const.GLOBAL_SUCC:
         return result_failure(result, "error in check_is_login_from_header")
@@ -77,8 +77,11 @@ def simple_task_first():
     req_json_str = request.data
     req_json = json.loads(req_json_str)
     if not req_json or len(req_json) == 0:
-        return result_failure(const.SIMPLE_TASK_FIRST_ERR_URL_EMPTY, "TASK_FIRST_ERR_URL_EMPTY")
+        return result_failure(const.SIMPLE_TASK_ERR_URL_EMPTY, "TASK_FIRST_ERR_URL_EMPTY")
 
+    url_len = len(req_json)
+    if url_len > 20:
+        return result_failure(const.SIMPLE_TASK_ERR_URL_GO_OVER, "SIMPLE_TASK_ERR_URL_GO_OVER")
     for url in req_json:
         if len(url.strip()) > 0:
             # check the url is in it
