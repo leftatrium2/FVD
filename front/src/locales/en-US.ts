@@ -112,6 +112,7 @@ export default {
   addSingleTask: {
     title: 'Add Download Task',
     linkLabel: 'Link:',
+    linkTip: 'Add multiple video links separated by line breaks. Support up to 20 links. For batch import feature, please upgrade to Pro version.',
     url: 'Video URL',
     urlPlaceholder: 'https://www.youtube.com/@harryjaggerdtravel',
     urlRequired: 'Please enter video URL!',

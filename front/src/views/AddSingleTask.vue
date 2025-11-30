@@ -4,6 +4,12 @@
       <div class="mb-6">
         <div class="flex items-center gap-4 mb-2">
           <span class="text-base whitespace-nowrap">{{ $t('addSingleTask.linkLabel') }}</span>
+          <a-tooltip placement="top">
+            <template #title>
+              <div>{{ $t('addSingleTask.linkTip') }}</div>
+            </template>
+            <QuestionCircleOutlined class="text-gray-400 cursor-pointer hover:text-blue-500" />
+          </a-tooltip>
         </div>
         <div class="flex gap-4">
           <a-textarea
@@ -27,6 +33,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { QuestionCircleOutlined } from '@ant-design/icons-vue'
 import Copyright from '@/components/Copyright.vue'
 import { message } from 'ant-design-vue'
 import request from '@/utils/request'

@@ -112,6 +112,7 @@ export default {
   addSingleTask: {
     title: '添加下载任务',
     linkLabel: '链接：',
+    linkTip: '添加多个视频链接，使用换行分割。最多支持20个链接，如果需要批量导入功能，请升级到专业版',
     url: '视频链接',
     urlPlaceholder: 'https://www.youtube.com/@harryjaggerdtravel',
     urlRequired: '请输入视频链接!',

@@ -5,11 +5,11 @@ import os
 import platform
 import signal
 import sys
+from http.client import HTTPException
 
 from flask import Flask, request
 from flask_babel import Babel
 from flask_cors import CORS
-from werkzeug.exceptions import HTTPException
 
 from crawler.utils.yt_dlp_utils import ytdlp_support_manager
 from modules.about import about_router
