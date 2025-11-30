@@ -1,7 +1,7 @@
 <template>
   <div>
-    <a-card :title="$t('settings.general.title')" :bordered="false">
-      <p>下载设置页面</p>
+    <a-card :bordered="false">
+      <p>添加定时任务页面</p>
     </a-card>
   </div>
 </template>

@@ -1,7 +1,7 @@
 <template>
   <div>
-    <a-card :title="$t('settings.general.title')" :bordered="false">
-      <p>下载设置页面</p>
+    <a-card :title="$t('settings.video.title')" :bordered="false">
+      <p>视频设置页面</p>
     </a-card>
   </div>
 </template>

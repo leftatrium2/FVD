@@ -135,7 +135,7 @@ const exportLogs = () => {
   const url = URL.createObjectURL(blob)
   const a = document.createElement('a')
   a.href = url
-  a.download = `ivd-logs-${new Date().getTime()}.txt`
+  a.download = `fvd-logs-${new Date().getTime()}.txt`
   a.click()
   URL.revokeObjectURL(url)
   

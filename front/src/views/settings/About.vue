@@ -18,12 +18,12 @@
             FVD Team
           </a-descriptions-item>
           <a-descriptions-item :label="$t('settings.about.websiteLabel')">
-            <a href="https://ivd.example.com" target="_blank" class="text-blue-600">
-              https://ivd.example.com
+            <a href="https://fullvideodown.com" target="_blank" class="text-blue-600">
+              https://fullvideodown.com
             </a>
           </a-descriptions-item>
           <a-descriptions-item :label="$t('settings.about.supportLabel')">
-            support@ivd.example.com
+            support@fullvideodown.com
           </a-descriptions-item>
         </a-descriptions>
 

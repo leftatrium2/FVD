@@ -57,62 +57,44 @@ def task_get():
     return result_failure(const.TASKMANAGER_GET_TASK_EMPTY, "TASKMANAGER_GET_TASK_EMPTY")
 
 
-# 添加任务第一步
-# 获取视频信息，以及显示视频内容
-@task_router.route('/simple/first', methods=['POST'])
+# add simple task
+# accept multiple simple url task
+@task_router.route('/simple', methods=['POST'])
 def simple_task_first():
     result = check_is_login_from_header(request)
     if result != const.GLOBAL_SUCC:
         return result_failure(result, "error in check_is_login_from_header")
-    req_json_str = request.data
-    req_json = json.loads(req_json_str)
-    url = None
-    if 'url' in req_json:
-        url = req_json['url']
-    if not url:
-        return result_failure(const.SIMPLE_TASK_FIRST_ERR_URL_EMPTY, "TASK_FIRST_ERR_URL_EMPTY")
-    info = crawler.gen_info(url=url)
-    if info:
-        info_dict = info.info(url=url)
-        if info_dict:
-            info_dict_result = {}
-            info_dict_result['title'] = info_dict['title']
-            info_dict_result['upload_date'] = info_dict['upload_date']
-            info_dict_result['channel'] = info_dict['channel']
-            info_dict_result['thumbnails'] = info_dict['thumbnails'][0]['url']
-            return result_succ(info_dict_result)
-    return result_failure(const.SIMPLE_TASK_FIRST_ERR_GEN_INFO_EMPTY, "TASK_FIRST_ERR_GEN_INFO_EMPTY")
 
-
-# 添加任务第二步
-# 选择：
-# 1. 立即执行：只执行一次，单次任务
-# 2. 循环执行：按照提供的信息，多次频繁执行
-@task_router.route('/simple/second', methods=['POST'])
-def task_second():
-    result = check_is_login_from_header(request)
-    if result != const.GLOBAL_SUCC:
-        return result_failure(result, "error in check_is_login_from_header")
-    req_json_str = request.data
-    req_json = json.loads(req_json_str)
-    if not req_json['url']:
-        logging.error(f"SIMPLE_TASK_SECOND_URL_EMPTY")
-        return result_failure(const.SIMPLE_TASK_SECOND_URL_EMPTY, "SIMPLE_TASK_SECOND_URL_EMPTY")
+    # get user id
+    user_id = 0
     token = request.headers.get('token')
     res = db.session.query(FvdOnlineList) \
         .filter(FvdOnlineList.token == token) \
         .first()
     if res:
         user_id = res.user_id if res.user_id else 0
-        simple_task = FvdTaskList()
-        simple_task.task_url = req_json['url']
-        simple_task.task_id = gen_task_id()
-        simple_task.user_id = user_id
-        simple_task.task_execution_mode = TASK_EXECUTION_EXECUTE_MODE
-        simple_task.create_time = datetime.now()
-        db.session.add(simple_task)
-        db.session.commit()
 
-        g_task_manager.add_simple_task(simple_task)
+    req_json_str = request.data
+    req_json = json.loads(req_json_str)
+    if not req_json or len(req_json) == 0:
+        return result_failure(const.SIMPLE_TASK_FIRST_ERR_URL_EMPTY, "TASK_FIRST_ERR_URL_EMPTY")
 
+    for url in req_json:
+        if len(url.strip()) > 0:
+            # check the url is in it
+            count = db.session.query(FvdTaskList) \
+                .filter(FvdTaskList.task_url == url, FvdTaskList.is_deleted == 0) \
+                .count()
+            if count == 0:
+                # add url to task list
+                simple_task = FvdTaskList()
+                simple_task.task_url = url
+                simple_task.task_id = gen_task_id()
+                simple_task.user_id = user_id
+                simple_task.task_execution_mode = TASK_EXECUTION_EXECUTE_MODE
+                simple_task.create_time = datetime.now()
+                db.session.add(simple_task)
+                db.session.commit()
+                # add url to task queue
+                g_task_manager.add_simple_task(simple_task)
     return result_succ({})

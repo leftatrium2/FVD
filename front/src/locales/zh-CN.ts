@@ -22,10 +22,14 @@ export default {
   menu: {
     home: '我的影院',
     download: '下载管理',
+    crawler: '爬虫管理',
     addSingleTask: '添加单次任务',
     addBatchTask: '添加批量任务',
+    addScheduledTask: '添加定时任务',
     settings: '设置',
-    general: '普通设置',
+    general: '下载设置',
+    video: '视频设置',
+    proxy: '代理设置',
     logs: '日志查看',
     upgrade: '升级到专业版',
     about: '关于'
@@ -111,9 +115,9 @@ export default {
     url: '视频链接',
     urlPlaceholder: 'https://www.youtube.com/@harryjaggerdtravel',
     urlRequired: '请输入视频链接!',
-    detectButton: '检测',
-    detectSuccess: '检测成功',
-    detectFailed: '检测失败',
+    detectButton: '下载',
+    detectSuccess: '添加下载任务成功',
+    detectFailed: '下载失败',
     downloadButton: '下载',
     downloadStarted: '开始下载',
     videoTitle: '视频标题',
@@ -149,7 +153,7 @@ export default {
   },
   settings: {
     general: {
-      title: '普通设置',
+      title: '下载设置',
       downloadSettings: '下载设置',
       defaultSavePath: '默认保存路径',
       defaultQuality: '默认下载质量',
@@ -172,6 +176,12 @@ export default {
       restoreDefaults: '恢复默认',
       saveSuccess: '设置保存成功!',
       restored: '已恢复默认设置'
+    },
+    video: {
+      title: '视频设置'
+    },
+    proxy: {
+      title: '代理设置'
     },
     logs: {
       title: '日志查看',

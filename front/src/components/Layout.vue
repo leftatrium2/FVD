@@ -23,6 +23,12 @@
           </template>
           <span>{{ $t('menu.download') }}</span>
         </a-menu-item>
+        <a-menu-item key="/crawler">
+          <template #icon>
+            <BugOutlined />
+          </template>
+          <span>{{ $t('menu.crawler') }}</span>
+        </a-menu-item>
         <a-menu-item key="/add-single-task">
           <template #icon>
             <PlusCircleOutlined />
@@ -35,12 +41,20 @@
           </template>
           <span>{{ $t('menu.addBatchTask') }}</span>
         </a-menu-item>
+        <a-menu-item key="/add-scheduled-task">
+          <template #icon>
+            <ClockCircleOutlined />
+          </template>
+          <span>{{ $t('menu.addScheduledTask') }}</span>
+        </a-menu-item>
         <a-sub-menu key="settings">
           <template #icon>
             <SettingOutlined />
           </template>
           <template #title>{{ $t('menu.settings') }}</template>
           <a-menu-item key="/settings/general">{{ $t('menu.general') }}</a-menu-item>
+          <a-menu-item key="/settings/video">{{ $t('menu.video') }}</a-menu-item>
+          <a-menu-item key="/settings/proxy">{{ $t('menu.proxy') }}</a-menu-item>
           <a-menu-item key="/settings/logs">{{ $t('menu.logs') }}</a-menu-item>
           <a-menu-item key="/settings/upgrade">{{ $t('menu.upgrade') }}</a-menu-item>
           <a-menu-item key="/settings/about">{{ $t('menu.about') }}</a-menu-item>
@@ -117,8 +131,10 @@ import {
   MenuUnfoldOutlined,
   HomeOutlined,
   CloudDownloadOutlined,
+  BugOutlined,
   PlusCircleOutlined,
   PlusSquareOutlined,
+  ClockCircleOutlined,
   SettingOutlined,
   UserOutlined,
   LogoutOutlined,

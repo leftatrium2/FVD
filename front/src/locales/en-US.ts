@@ -22,10 +22,14 @@ export default {
   menu: {
     home: 'My Theater',
     download: 'Download Management',
+    crawler: 'Crawler Management',
     addSingleTask: 'Add Single Task',
     addBatchTask: 'Add Batch Task',
+    addScheduledTask: 'Add Scheduled Task',
     settings: 'Settings',
-    general: 'General',
+    general: 'Download Settings',
+    video: 'Video Settings',
+    proxy: 'Proxy Settings',
     logs: 'Logs',
     upgrade: 'Upgrade to Pro',
     about: 'About'
@@ -111,9 +115,9 @@ export default {
     url: 'Video URL',
     urlPlaceholder: 'https://www.youtube.com/@harryjaggerdtravel',
     urlRequired: 'Please enter video URL!',
-    detectButton: 'Detect',
-    detectSuccess: 'Detection successful',
-    detectFailed: 'Detection failed',
+    detectButton: 'Download',
+    detectSuccess: 'add download task successful',
+    detectFailed: 'Download failed',
     downloadButton: 'Download',
     downloadStarted: 'Download started',
     videoTitle: 'Video Title',
@@ -149,7 +153,7 @@ export default {
   },
   settings: {
     general: {
-      title: 'General Settings',
+      title: 'Download Settings',
       downloadSettings: 'Download Settings',
       defaultSavePath: 'Default Save Path',
       defaultQuality: 'Default Quality',
@@ -172,6 +176,12 @@ export default {
       restoreDefaults: 'Restore Defaults',
       saveSuccess: 'Settings saved successfully!',
       restored: 'Default settings restored'
+    },
+    video: {
+      title: 'Video Settings'
+    },
+    proxy: {
+      title: 'Proxy Settings'
     },
     logs: {
       title: 'Logs',

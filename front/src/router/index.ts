@@ -38,6 +38,12 @@ const routes: RouteRecordRaw[] = [
         meta: { title: '下载', icon: 'CloudDownloadOutlined' }
       },
       {
+        path: '/crawler',
+        name: 'Crawler',
+        component: () => import('@/views/Crawler.vue'),
+        meta: { title: '爬虫管理', icon: 'BugOutlined' }
+      },
+      {
         path: '/add-single-task',
         name: 'AddSingleTask',
         component: () => import('@/views/AddSingleTask.vue'),
@@ -50,6 +56,12 @@ const routes: RouteRecordRaw[] = [
         meta: { title: '添加批量任务', icon: 'PlusCircleOutlined' }
       },
       {
+        path: '/add-scheduled-task',
+        name: 'AddScheduledTask',
+        component: () => import('@/views/AddScheduledTask.vue'),
+        meta: { title: '添加定时任务', icon: 'ClockCircleOutlined' }
+      },
+      {
         path: '/settings',
         name: 'Settings',
         redirect: '/settings/general',
@@ -59,7 +71,19 @@ const routes: RouteRecordRaw[] = [
             path: '/settings/general',
             name: 'SettingsGeneral',
             component: () => import('@/views/settings/General.vue'),
-            meta: { title: '普通设置' }
+            meta: { title: '下载设置' }
+          },
+          {
+            path: '/settings/video',
+            name: 'SettingsVideo',
+            component: () => import('@/views/settings/Video.vue'),
+            meta: { title: '视频设置' }
+          },
+          {
+            path: '/settings/proxy',
+            name: 'SettingsProxy',
+            component: () => import('@/views/settings/Proxy.vue'),
+            meta: { title: '代理设置' }
           },
           {
             path: '/settings/logs',
