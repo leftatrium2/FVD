@@ -21,8 +21,8 @@ def crawler_register():
     if 'rand' in request.args:
         rand = request.args.get('rand')
 
+    crawler_hash = gen_crawler_hash()
     try:
-        crawler_hash = gen_crawler_hash()
         crawler_item = FvdCrawlerList()
         crawler_item.crawler_host = ip
         crawler_item.crawler_name = rand
@@ -35,4 +35,4 @@ def crawler_register():
         logging.error(f"add {ex}")
         return result.result_failure(const.CRAWLER_ERROR_REGISTER, f"CRAWLER_ERROR_REGISTER")
 
-    return result.result_succ({})
+    return result.result_succ({"crawler_hash": crawler_hash})

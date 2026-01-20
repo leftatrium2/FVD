@@ -1,0 +1,3 @@
+[submodule "server/pro"]
+	path = server/pro
+	url = git@github.com:leftatrium2/FVD-pro.git
