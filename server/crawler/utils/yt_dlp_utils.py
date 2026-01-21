@@ -6,7 +6,7 @@ class YTDlpSupportManager(object):
     _support_site_keyword = []
 
     def __init__(self):
-        curr_path = os.getcwd() +  os.sep + "support.config"
+        curr_path = os.getcwd() + os.sep + "crawler" + os.sep + "utils" + os.sep + "support.config"
         fp = open(curr_path)
         self._support_site_keyword = fp.read().splitlines()
 
