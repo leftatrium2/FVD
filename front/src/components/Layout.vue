@@ -105,7 +105,6 @@ import {
   CloudDownloadOutlined,
   BugOutlined,
   PlusCircleOutlined,
-  PlusSquareOutlined,
   ClockCircleOutlined,
   SettingOutlined,
   UserOutlined,
@@ -145,8 +144,6 @@ const getMenuIcon = (url: string | undefined) => {
     '/download': CloudDownloadOutlined,
     '/crawler': BugOutlined,
     '/add-single-task': PlusCircleOutlined,
-    '/add-batch-task': PlusSquareOutlined,
-    '/import-batch-single-task': PlusSquareOutlined,
     '/add-scheduled-task': ClockCircleOutlined,
     'settings': SettingOutlined
   }

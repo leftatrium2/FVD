@@ -36,9 +36,9 @@ class CrawlerFactory(object):
 crawler = CrawlerFactory()
 
 if __name__ == "__main__":
-    info = crawler.gen_info("https://www.youtube.com/watch?v=n5sZJhAyFR0")
+    info = crawler.gen_info("https://www.youtube.com/watch?v=UgGCWEJ_FKM")
     if not info:
         print("failure")
         sys.exit(-1)
-    info.info("https://www.youtube.com/watch?v=n5sZJhAyFR0")
+    info.info("https://www.youtube.com/watch?v=UgGCWEJ_FKM")
     pass

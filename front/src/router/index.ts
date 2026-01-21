@@ -50,12 +50,6 @@ const routes: RouteRecordRaw[] = [
         meta: { title: '添加单次任务', icon: 'PlusCircleOutlined' }
       },
       {
-        path: '/add-batch-task',
-        name: 'AddBatchTask',
-        component: () => import('@/views/AddBatchTask.vue'),
-        meta: { title: '添加批量任务', icon: 'PlusCircleOutlined' }
-      },
-      {
         path: '/add-scheduled-task',
         name: 'AddScheduledTask',
         component: () => import('@/views/AddScheduledTask.vue'),

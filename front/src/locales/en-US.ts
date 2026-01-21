@@ -119,6 +119,12 @@ export default {
     detectButton: 'Download',
     detectSuccess: 'add download task successful',
     detectFailed: 'Download failed',
+    videoQuality: 'Quality:',
+    qualityOptions: {
+      default: 'Default',
+      best: 'Best Quality',
+      fast: 'Fastest Speed'
+    },
     downloadButton: 'Download',
     downloadStarted: 'Download started',
     videoTitle: 'Video Title',

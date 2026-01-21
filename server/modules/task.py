@@ -79,10 +79,12 @@ def simple_task():
     if not req_json or len(req_json) == 0:
         return result_failure(const.SIMPLE_TASK_ERR_URL_EMPTY, "TASK_FIRST_ERR_URL_EMPTY")
 
-    url_len = len(req_json)
+    quality = req_json['quality']
+    url_list = req_json['url']
+    url_len = len(url_list)
     if url_len > 20:
         return result_failure(const.SIMPLE_TASK_ERR_URL_GO_OVER, "SIMPLE_TASK_ERR_URL_GO_OVER")
-    for url in req_json:
+    for url in url_list:
         if len(url.strip()) > 0:
             # check the url is in it
             count = db.session.query(FvdTaskList) \

@@ -119,6 +119,12 @@ export default {
     detectButton: '下载',
     detectSuccess: '添加下载任务成功',
     detectFailed: '下载失败',
+    videoQuality: '质量：',
+    qualityOptions: {
+      default: '默认',
+      best: '最高质量',
+      fast: '最快速度'
+    },
     downloadButton: '下载',
     downloadStarted: '开始下载',
     videoTitle: '视频标题',

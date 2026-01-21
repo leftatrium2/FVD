@@ -20,11 +20,6 @@ BASIC_MENU_CONFIG = [
         "url": "/add-single-task"
     },
     {
-        "c_name": "添加批量任务",
-        "e_name": "Add Batch Task",
-        "url": "/add-batch-task"
-    },
-    {
         "c_name": "添加定时任务",
         "e_name": "Add Scheduled Task",
         "url": "/add-scheduled-task"
@@ -94,11 +89,6 @@ PROFESSIONAL_MENU_CONFIG = [
         "url": "/import-batch-single-task"
     },
     {
-        "c_name": "添加批量任务",
-        "e_name": "Add Batch Task",
-        "url": "/add-batch-task"
-    },
-    {
         "c_name": "添加定时任务",
         "e_name": "Add Scheduled Task",
         "url": "/add-scheduled-task"
@@ -128,9 +118,9 @@ PROFESSIONAL_MENU_CONFIG = [
                 "url": "/settings/logs"
             },
             {
-                "c_name": "升级到专业版",
-                "e_name": "Upgrade to Pro",
-                "url": "/settings/upgrade"
+                "c_name": "专业版权限",
+                "e_name": "About Professional User",
+                "url": "/settings/about_professional"
             },
             {
                 "c_name": "关于",

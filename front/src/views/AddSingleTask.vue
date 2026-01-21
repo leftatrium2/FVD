@@ -2,26 +2,38 @@
   <div>
     <a-card :bordered="false" class="max-w-6xl mx-auto">
       <div class="mb-6">
-        <div class="flex items-center gap-4 mb-2">
+        <div class="mb-2">
           <span class="text-base whitespace-nowrap">{{ $t('addSingleTask.linkLabel') }}</span>
           <a-tooltip placement="top">
             <template #title>
               <div>{{ $t('addSingleTask.linkTip') }}</div>
             </template>
-            <QuestionCircleOutlined class="text-gray-400 cursor-pointer hover:text-blue-500" />
+            <QuestionCircleOutlined class="ml-2 text-gray-400 cursor-pointer hover:text-blue-500" />
           </a-tooltip>
         </div>
-        <div class="flex gap-4">
+        
+        <div class="flex gap-4 mb-6">
           <a-textarea
             v-model:value="url"
             size="large"
             :placeholder="$t('addSingleTask.urlPlaceholder')"
-            :auto-size="{ minRows: 3, maxRows: 6 }"
+            :auto-size="{ minRows: 4, maxRows: 8 }"
             style="flex: 1"
           />
-          <a-button type="primary" size="large" @click="handleDetect" :loading="detecting">
-            {{ $t('addSingleTask.detectButton') }}
-          </a-button>
+          <div class="flex items-start">
+            <a-button type="primary" size="large" @click="handleDetect" :loading="detecting" class="px-8">
+              {{ $t('addSingleTask.detectButton') }}
+            </a-button>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-4">
+          <span class="text-base whitespace-nowrap">{{ $t('addSingleTask.videoQuality') }}</span>
+          <a-select v-model:value="quality" size="large" style="width: 200px">
+            <a-select-option :value="0">{{ $t('addSingleTask.qualityOptions.default') }}</a-select-option>
+            <a-select-option :value="1">{{ $t('addSingleTask.qualityOptions.best') }}</a-select-option>
+            <a-select-option :value="2">{{ $t('addSingleTask.qualityOptions.fast') }}</a-select-option>
+          </a-select>
         </div>
       </div>
     </a-card>
@@ -41,6 +53,7 @@ import request from '@/utils/request'
 const { t } = useI18n()
 
 const url = ref('')
+const quality = ref(0)
 const detecting = ref(false)
 
 const handleDetect = async () => {
@@ -63,7 +76,11 @@ const handleDetect = async () => {
   detecting.value = true
   
   try {
-    const response = await request.post('/task/simple', urls)
+    const payload = {
+      quality: quality.value,
+      url: urls
+    }
+    const response = await request.post('/task/simple', payload)
     
     if (response.code === 0) {
       message.success(t('addSingleTask.detectSuccess'))
